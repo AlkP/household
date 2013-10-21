@@ -1,42 +1,18 @@
 
-<!--<input style="width:400px" id="textfield" type="text" value="слово"/>-->
-<!--<select id="options">-->
-  <!--<option value="#000">Черный</option>-->
-  <!--<option value="#fff">Белый</option>-->
-<!--</select>-->
-
-<!--<script type="text/javascript">-->
-<!--//    var noFirst=false;-->
-<!--//    $(function(){-->
-<!--//        $('#options').change(function(){-->
-<!--//            var curtext = $('#textfield').val();-->
-<!--//            if(noFirst){-->
-<!--//                curtext = curtext.replace(/<span[^>]*>([^<]*)\<\/span>/img,"$1")-->
-<!--//            } noFirst=true;-->
-<!--//            var curcolor = $(this).val();-->
-<!--//            var result = '<span style="color:' + curcolor + '">' + curtext + '</span>';-->
-<!--//            $('#textfield').val(result);-->
-<!--//        })-->
-<!--//    })-->
-<!--</script>-->
-
-
-
-
-<!--<input id="search_input" type="text"> <input style="width:400px" id="search" type="text" value="слово"/>-->
-<!--<script type="text/javascript">-->
-<!--//    $(function(){-->
-<!--//        $('#search_input').change(function(){-->
-<!--//            var result = $(this).val();-->
-<!--//            $('#search').val(result);-->
-<!--//        })-->
-<!--//    })-->
-<!--</script>-->
-
-
-
 <%= form_for :account, url: accounts_path do |f| %>
 
+    <% if @account.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <!--< %= pluralize(@account.errors.count, "ошибка") %> -->
+            Следующие ошибки запрещают сохранить этот счет :</h2>
+          <ul>
+            <% @account.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
     <!--< %= f.date_field :date_amount, :value => Date.today %><br>-->
 
     <p>

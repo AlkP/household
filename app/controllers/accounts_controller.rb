@@ -1,17 +1,20 @@
 class AccountsController < ApplicationController
   def new
+    @account = Account.new()
     #true ? jopa : suka
   end
 
   def create
     #render text: params[:post].inspect
-    puts "suka " * 1000
-    puts params[:account]
-    puts " БЛЯ "
     @account = Account.new(account_params)
 
-    @account.save
-    redirect_to @account
+    if (@account.save)
+      redirect_to @account
+    else
+      render 'new'
+    end
+
+
   end
 
   def show
