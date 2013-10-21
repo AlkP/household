@@ -1,0 +1,106 @@
+
+<!--<input style="width:400px" id="textfield" type="text" value="слово"/>-->
+<!--<select id="options">-->
+  <!--<option value="#000">Черный</option>-->
+  <!--<option value="#fff">Белый</option>-->
+<!--</select>-->
+
+<!--<script type="text/javascript">-->
+<!--//    var noFirst=false;-->
+<!--//    $(function(){-->
+<!--//        $('#options').change(function(){-->
+<!--//            var curtext = $('#textfield').val();-->
+<!--//            if(noFirst){-->
+<!--//                curtext = curtext.replace(/<span[^>]*>([^<]*)\<\/span>/img,"$1")-->
+<!--//            } noFirst=true;-->
+<!--//            var curcolor = $(this).val();-->
+<!--//            var result = '<span style="color:' + curcolor + '">' + curtext + '</span>';-->
+<!--//            $('#textfield').val(result);-->
+<!--//        })-->
+<!--//    })-->
+<!--</script>-->
+
+
+
+
+<!--<input id="search_input" type="text"> <input style="width:400px" id="search" type="text" value="слово"/>-->
+<!--<script type="text/javascript">-->
+<!--//    $(function(){-->
+<!--//        $('#search_input').change(function(){-->
+<!--//            var result = $(this).val();-->
+<!--//            $('#search').val(result);-->
+<!--//        })-->
+<!--//    })-->
+<!--</script>-->
+
+
+
+<%= form_for :account, url: accounts_path do |f| %>
+
+    <!--< %= f.date_field :date_amount, :value => Date.today %><br>-->
+
+    <p>
+      <%= f.label "Наименование" %><br>
+      <%= f.text_field :title %>
+    </p>
+
+    <p>
+
+      <!--< %= f.month_field "Бля" %><br>-->
+      <!--< %= f.week_field "Бля" %><br>-->
+
+      <%= f.label "Стоимость" %><br>
+      <%= f.text_field :amount, :size => 8, :onKeyPress => "
+        if (((event.keyCode < 48) || (event.keyCode > 57)) && (event.keyCode != 46 ) )
+        {
+          <!--alert(document.getElementById ('account_amount').value); --!>
+          event.returnValue = false;
+        }
+        else
+        {
+          {
+            test = document.getElementById ('account_amount').value + String.fromCharCode(event.keyCode)
+            q = /^(\\w*)?(\\.)?(\\w*)?$/.test(test);
+            if (q)
+              true;
+            else
+              event.returnValue = false;
+          }
+        }", :onKeyUp => "
+        <!--alert(document.getElementById ('account_amount').value); --!>
+        "%>
+      <!--< %= f.color_field :amount %>-->
+    </p>
+
+    <p>
+      <%= f.submit "Ввести" %>
+    </p>
+<% end %>
+
+<%= link_to 'Список', accounts_path %>
+
+<script>
+  function checkform(f) {
+    var errMSG = "";
+    // цикл ниже перебирает все элементы в объекте f,
+    // переданном в качестве параметра
+    // функции, в данном случае - наша форма.
+    for (var i = 0; i<f.elements.length; i++)
+        // если текущий элемент имеет атрибут required
+        // т.е. обязательный для заполнения
+        if (null!=f.elements[i].getAttribute("required"))
+        // проверяем, заполнен ли он в форме
+            if (isEmpty(f.elements[i].value)) // пустой
+                errMSG += "  " + f.elements[i].name + "\n"; // формируем сообщение
+    // об ошибке, перечисляя
+    // незаполненные поля
+    // если сообщение об ошибке не пусто,
+    // выводим его, и возвращаем false
+    if ("" != errMSG) {
+        alert("Не заполнены обязательные поля:\n" + errMSG);
+        return false;
+    }
+  }
+
+
+</script>
