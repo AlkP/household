@@ -78,9 +78,9 @@
         newrow.insertCell(1).innerHTML = "<%= f.amount %>";
         newrow.insertCell(2).innerHTML = "<%= f .created_at.to_date %>";
         nrow++;
-//        var qw = <%= f.amount %>;
+        var qw = <%= f.amount %>;
 //        alert(qw);
-//        summa += qw;
+        summa += qw;
     }
     <% end %>
     document.getElementById('result').innerHTML = summa;
