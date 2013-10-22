@@ -1,0 +1,66 @@
+<%= link_to 'Удалить счет', account_path(@account), method: :delete, data: { confirm: 'Are you sure?' } %>  |
+<%= link_to 'Список счетов', accounts_path %>
+
+<br> <br>
+
+
+<%= form_for @account, :html => { :multipart => true } do |f| %>
+
+    <% if @account.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <!--< %= pluralize(@account.errors.count, "ошибка") %> -->
+            Следующие ошибки запрещают сохранить этот счет :</h2>
+          <ul>
+            <% @account.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <!--< %= f.date_field :date_amount, :value => Date.today %><br>-->
+
+    <p>
+      <%= f.label "Наименование" %>
+      <%= f.text_field :title %>
+
+    </p>
+
+    <p>
+      <%= f.label "Сумма" %>
+      <%= f.text_field :amount, :onKeyPress => "
+        if (((event.keyCode < 48) || (event.keyCode > 57)) && (event.keyCode != 46 ) )
+        {
+          <!--alert(document.getElementById ('account_amount').value); --!>
+          event.returnValue = false;
+        }
+        else
+        {
+          {
+            test = document.getElementById ('account_amount').value + String.fromCharCode(event.keyCode)
+            q = /^(\\w*)?(\\.)?(\\w*)?$/.test(test);
+            if (q)
+              true;
+            else
+              event.returnValue = false;
+          }
+        }"%>
+    </p>
+
+
+    <%= f.text_field :shop_name, :class => "rest", :value => "" %>
+
+    <p>
+      <%= f.submit "Обновить счет" %>
+
+    </p>
+<% end %>
+
+<script>
+    var input = document.getElementsByClassName("rest")[0];
+    input.oninput = function()
+    {
+        change_tr(input_0.value,search_string_0)
+    }
+
+</script>

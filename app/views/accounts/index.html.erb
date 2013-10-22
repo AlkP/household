@@ -26,7 +26,7 @@
     <% @accounts.each do |f| %>
       <tr>
         <td>
-          <%= f.title %>
+          <%= link_to f.title, edit_account_path(f) %>
         </td>
         <td>
           <%= f.amount %>
@@ -69,7 +69,7 @@
         if (result_search_)
         {
             var newrow = mytable.insertRow(2);
-            newrow.insertCell(0).innerHTML = "<%= f.title %>";
+            newrow.insertCell(0).innerHTML = "<%= link_to f.title, edit_account_path(f) %>";
             newrow.insertCell(1).innerHTML = "<%= f.amount %>";
             newrow.insertCell(2).innerHTML = "<%= f .created_at.to_date %>";
             var qw = <%= f.amount %>;
