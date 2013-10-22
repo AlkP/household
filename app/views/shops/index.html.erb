@@ -1,0 +1,52 @@
+<table class="table table-condensed table-hover table-striped alkp_table_active">
+  <thead>
+  <tr>
+    <th>
+      Наименование
+    </th>
+    <th>
+      Адрес
+    </th>
+    <!--<th>-->
+      <!--1-->
+    <!--</th>-->
+    <!--<th>-->
+      <!--2-->
+    <!--</th>-->
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <input type="text" search_string="title" id="alkp_search_field_0">  <!--<br> <span id="result"></span>-->
+    </td>
+    <td>
+      <!--Итого: <span id="result"></span>-->
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <% @shops.each do |f| %>
+      <tr>
+        <td>
+          <%= link_to f.name, edit_shop_path(f) %>
+        </td>
+        <td>
+          <%= f.address %>
+        </td>
+        <!--<td>-->
+          <!--<%= f.latitude %>-->
+        <!--</td>-->
+        <!--<td>-->
+          <!--<%= f.longitude %>-->
+        <!--</td>-->
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Новый магазин', new_shop_path, :id => "btn" %>
+

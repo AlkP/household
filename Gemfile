@@ -7,6 +7,8 @@ group :test do
   gem "guard-rspec"
 end
 
+gem 'geocoder'
+
 #  twitter-bootstrap-rails block
 gem 'twitter-bootstrap-rails'
 gem "less-rails"

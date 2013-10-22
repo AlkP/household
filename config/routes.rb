@@ -1,6 +1,9 @@
 Household::Application.routes.draw do
 
   resources :accounts
+  resources :shops do
+    resources :accounts
+  end
 
   root 'accounts#index'
 

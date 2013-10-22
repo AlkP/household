@@ -1,7 +1,6 @@
 class AccountsController < ApplicationController
   def new
     @account = Account.new()
-    #true ? jopa : suka
   end
 
   def create
@@ -23,7 +22,6 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = Account.all
-    @filter = []
   end
 
   private

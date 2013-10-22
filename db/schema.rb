@@ -11,11 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131018155556) do
+ActiveRecord::Schema.define(version: 20131022122401) do
 
   create_table "accounts", force: true do |t|
     t.string   "title"
     t.float    "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "shop_id"
+  end
+
+  add_index "accounts", ["shop_id"], name: "index_accounts_on_shop_id", using: :btree
+
+  create_table "shops", force: true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

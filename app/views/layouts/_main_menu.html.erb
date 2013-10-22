@@ -34,9 +34,8 @@
       <div class="nav-collapse collapse navbar-responsive-collapse">
         <ul class="nav">
           <!--<li class="active">-->
-          <li>
-            <a href="#">Магазины</a>
-          </li>
+          <!--class=< %= "active" if current_page == "shops" %>-->
+          <li class=<%= "active" if current_page == "shops" %>><%= link_to 'Магазины', controller: "shops", action: "index" %></li>
           <!--<li>-->
             <!--<a href="#">Link</a>-->
           <!--</li>-->

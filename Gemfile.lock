@@ -55,6 +55,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.0)
     formatador (0.2.4)
+    geocoder (1.1.8)
     guard (2.1.1)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -188,6 +189,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   factory_girl_rails
+  geocoder
   guard-rspec
   jbuilder (~> 1.2)
   jquery-rails
