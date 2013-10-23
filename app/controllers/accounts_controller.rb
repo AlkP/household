@@ -7,9 +7,11 @@ class AccountsController < ApplicationController
 
   def create
     @shop = Shop.where(:name => params[:account][:shop_name])
+    data = params[:account]["date_amount(1i)"] + "/" + params[:account]["date_amount(2i)"] + "/" + params[:account]["date_amount(3i)"]
+    @date_sales = Date.parse(data)
     if @shop.count == 1
       #@account = Account.new(account_params)
-      @account = Account.new(:date_amount => params[:account][:date_amount], :title => params[:account][:title], :amount => params[:account][:amount],:shop_id => @shop.first.id)
+      @account = Account.new(:date_amount => @date_sales, :title => params[:account][:title], :amount => params[:account][:amount],:shop_id => @shop.first.id)
       @shop = Shop.where(:name => params[:account][:shop_name])
       if (@account.save)
         redirect_to accounts_path
