@@ -1,3 +1,6 @@
+<%= link_to 'Новый счет', new_account_path, :id => "btn" %>
+<br><br>
+
 <table class="table table-condensed table-hover table-striped alkp_table_active">
   <thead>
   <tr>
@@ -12,6 +15,7 @@
     </th>
   </tr>
   </thead>
+
   <tbody>
     <tr>
       <td>
@@ -39,12 +43,8 @@
   </tbody>
 </table>
 
-
-<%= link_to 'Новый счет', new_account_path, :id => "btn" %>
-
-
-
 <script>
+
     function change_tr(my_qq_ww, par_search) {
         var last_row_index=mytable.rows.length-1;
         var index_row = mytable.rows.length
@@ -53,29 +53,26 @@
             last_row_index = last_row_index - 1;
         }
         var summa = 0
-
         <% @accounts.each do |f| %>
-        switch (par_search)
-        {
-            case("title"):
-                var text = "<%= f.title %>";
-                break;
-            case("amount"):
-                var text = "<%= f.amount %>";
-                break;
-        }
-        var search_str = new RegExp(my_qq_ww, "g");
-        result_search_ = text.match(search_str);
-        if (result_search_)
-        {
-            var newrow = mytable.insertRow(2);
-            newrow.insertCell(0).innerHTML = "<%= link_to f.title, edit_account_path(f) %>";
-            newrow.insertCell(1).innerHTML = "<%= f.amount %>";
-            newrow.insertCell(2).innerHTML = "<%= f .created_at.to_date %>";
-            var qw = <%= f.amount %>;
-//        alert(qw);
-            summa += qw;
-        }
+            var search_str = new RegExp(my_qq_ww, "gi");
+            switch (par_search)
+            {
+                case("title"):
+                    result_search_ = ("<%= f.title %>").match(search_str);
+                    break;
+                case("amount"):
+                    result_search_ = ("<%= f.amount %>").match(search_str);
+                    break;
+            }
+            if (result_search_)
+            {
+                var newrow = mytable.insertRow(2);
+                newrow.insertCell(0).innerHTML = "<a href=\"/accounts/<%= f.id %>/edit\"><%= f.title %></a>";
+                newrow.insertCell(1).innerHTML = "<%= f.amount %>";
+                newrow.insertCell(2).innerHTML = "<%= f .created_at.to_date %>";
+                var qw = <%= f.amount %>;
+                summa += qw;
+            }
         <% end %>
         document.getElementById('result').innerHTML = summa;
     }
@@ -87,7 +84,7 @@
     var input_0 = document.getElementById("alkp_search_field_0");
     input_0.oninput = function()
     {
-        change_tr(input_0.value,search_string_0)
+        change_tr(input_0.value,search_string_0);
     }
     var search_string_0 = document.getElementById("alkp_search_field_0").attributes.search_string.value
     change_tr(input_0.value,search_string_0);

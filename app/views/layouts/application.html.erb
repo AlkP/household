@@ -5,6 +5,12 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+
 </head>
 <body>
 
@@ -13,11 +19,23 @@
       <div class="span12">
         <%= render 'layouts/main_menu' %>
       </div>
+      <% flash.each do |name, msg| %>
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="alert alert-error">
+              <h4>ОШИБКА !</h4>
+              <br>
+              <%= content_tag :div, msg, :id => "flash#{name}" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <div class="row-fluid">
         <div class="span4">
           <%= yield %>
         </div>
         <div class="span4">
+
         </div>
         <div class="span4">
         </div>
