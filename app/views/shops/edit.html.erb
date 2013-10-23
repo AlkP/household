@@ -1,40 +1,5 @@
 <%= link_to 'Удалить магазин', shop_path(@shop), method: :delete, data: { confirm: 'Are you sure?' } %>  |
-<%= link_to 'Список магазинов', shops_path %>
 
-<br> <br>
-
-<%= form_for @shop, :html => { :multipart => true } do |f| %>
-
-    <% if @shop.errors.any? %>
-        <div id="error_explanation">
-          <h2>
-            <!--< %= pluralize(@account.errors.count, "ошибка") %> -->
-            Следующие ошибки запрещают сохранить этот счет :</h2>
-          <ul>
-            <% @shop.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-    <!--< %= f.date_field :date_amount, :value => Date.today %><br>-->
-
-    <p>
-      <%= f.label "Наименование" %>
-      <%= f.text_field :name %>
-    </p>
-
-    <p>
-      <%= f.label "Адрес" %>
-      <%= f.text_field :address %>
-    </p>
-
-
-
-    <p>
-      <%= f.submit "Обновить информацию о магазине" %>
-
-    </p>
-<% end %>
+<%= render 'form' %>
 
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=800x600&sensor=true&zoom=17&markers=#{@shop.latitude}%2C#{@shop.longitude}" %>
