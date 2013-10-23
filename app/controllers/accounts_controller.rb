@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
     @shop = Shop.where(:name => params[:account][:shop_name])
     if @shop.count == 1
       #@account = Account.new(account_params)
-      @account = Account.new(:title => params[:account][:title], :amount => params[:account][:amount],:shop_id => @shop.first.id)
+      @account = Account.new(:date_amount => params[:account][:date_amount], :title => params[:account][:title], :amount => params[:account][:amount],:shop_id => @shop.first.id)
       @shop = Shop.where(:name => params[:account][:shop_name])
       if (@account.save)
         redirect_to accounts_path
@@ -42,7 +42,10 @@ class AccountsController < ApplicationController
       @shop_name = @shop.name
 
       @account = Account.find(params[:id])
-      if @account.update(:title => params[:account][:title], :amount => params[:account][:amount],:shop_id => @shop.first.id)
+      data = params[:account]["date_amount(1i)"] + "/" + params[:account]["date_amount(2i)"] + "/" + params[:account]["date_amount(3i)"]
+      @date_sales = Date.parse(data)
+
+      if @account.update(:date_amount => @date_sales, :title => params[:account][:title], :amount => params[:account][:amount],:shop_id => @shop.first.id)
         redirect_to accounts_path
       else
         render 'edit'

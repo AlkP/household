@@ -4,54 +4,61 @@
 
 <%= form_for @account, :html => { :multipart => true } do |f| %>
 
-    <% if @account.errors.any? %>
-        <div id="error_explanation">
-          <h2>
-            <!--< %= pluralize(@account.errors.count, "ошибка") %> -->
-            Следующие ошибки запрещают сохранить этот счет :</h2>
-          <ul>
-            <% @account.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-    <!--< %= f.date_field :date_amount, :value => Date.today %><br>-->
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <!--< %= pluralize(@account.errors.count, "ошибка") %> -->
+        Следующие ошибки запрещают сохранить этот счет :</h2>
+      <ul>
+        <% @account.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <p>
-      <%= f.label "Наименование" %>
-      <%= f.text_field :title %>
+  <p>
+    <%= f.label "Наименование" %>
+    <%= f.text_field :title %>
+  </p>
 
-    </p>
-
-    <p>
-      <%= f.label "Сумма" %>
-      <%= f.text_field :amount, :onKeyPress => "
-        if (((event.keyCode < 48) || (event.keyCode > 57)) && (event.keyCode != 46 ) )
-        {
-          <!--alert(document.getElementById ('account_amount').value); --!>
-          event.returnValue = false;
-        }
+  <p>
+    <%= f.label "Сумма" %>
+    <%= f.text_field :amount, :onKeyPress => "
+    if (((event.keyCode < 48) || (event.keyCode > 57)) && (event.keyCode != 46 ) )
+    {
+      <!--alert(document.getElementById ('account_amount').value); --!>
+      event.returnValue = false;
+    }
+    else
+    {
+      {
+        test = document.getElementById ('account_amount').value + String.fromCharCode(event.keyCode)
+        q = /^(\\w*)?(\\.)?(\\w*)?$/.test(test);
+        if (q)
+          true;
         else
-        {
-          {
-            test = document.getElementById ('account_amount').value + String.fromCharCode(event.keyCode)
-            q = /^(\\w*)?(\\.)?(\\w*)?$/.test(test);
-            if (q)
-              true;
-            else
-              event.returnValue = false;
-          }
-        }"%>
-    </p>
+          event.returnValue = false;
+      }
+    }"%>
+  </p>
 
+  <p>
     <%= f.label "Наименование магазина" %>
     <%= f.text_field :shop_name, :class => "rest", :value => @shop_name %>
+  </p>
 
-    <p>
-      <%= f.submit "Сохранить счет" %>
+  <p>
+    <%= f.label "Дата покупки" %>
+    <%= f.date_select :date_amount %>
+  </p>
 
-    </p>
+  <br>
+
+  <p>
+    <%= f.submit "Сохранить счет" %>
+  </p>
+
 <% end %>
 
 <script>

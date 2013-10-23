@@ -36,7 +36,7 @@
           <%= f.amount %>
         </td>
         <td>
-          <%= f.created_at.to_date %>
+          <%= f.date_amount %>
         </td>
       </tr>
     <% end %>
@@ -69,7 +69,7 @@
                 var newrow = mytable.insertRow(2);
                 newrow.insertCell(0).innerHTML = "<a href=\"/accounts/<%= f.id %>/edit\"><%= f.title %></a>";
                 newrow.insertCell(1).innerHTML = "<%= f.amount %>";
-                newrow.insertCell(2).innerHTML = "<%= f .created_at.to_date %>";
+                newrow.insertCell(2).innerHTML = "<%= f.date_amount %>";
                 var qw = <%= f.amount %>;
                 summa += qw;
             }
@@ -82,28 +82,14 @@
 
 
     var input_0 = document.getElementById("alkp_search_field_0");
+    var search_string_0 = document.getElementById("alkp_search_field_0").attributes.search_string.value
     input_0.oninput = function()
     {
         change_tr(input_0.value,search_string_0);
     }
-    var search_string_0 = document.getElementById("alkp_search_field_0").attributes.search_string.value
+
+
     change_tr(input_0.value,search_string_0);
-
-    var input_1 = document.getElementById("alkp_search_field_1");
-    input_1.oninput = function()
-    {
-        change_tr(input_1.value,search_string_1)
-    }
-    var search_string_1 = document.getElementById("alkp_search_field_1").attributes.search_string.value
-    change_tr(input_1.value,search_string_1);
-
-    var input_2 = document.getElementById("alkp_search_field_2");
-    input_2.oninput = function()
-    {
-        change_tr(input_2.value,search_string_2)
-    }
-    var search_string_2 = document.getElementById("alkp_search_field_2").attributes.search_string.value
-    change_tr(input_2.value,search_string_2);
 
 </script>
 
