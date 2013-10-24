@@ -12,22 +12,40 @@
         <li class="divider-vertical">
         </li>
         <li class="dropdown">
-          <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown<strong class="caret"></strong></a>
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <% if current_user %>
+              <%= current_user.email %>
+            <% else %>
+              Рабочая кнопка
+            <% end %>
+          <strong class="caret"></strong></a>
           <ul class="dropdown-menu">
-            <li>
-              <a href="#">Action</a>
-            </li>
-            <li>
-              <a href="#">Another action</a>
-            </li>
-            <li>
-              <a href="#">Something else here</a>
-            </li>
-            <li class="divider">
-            </li>
-            <li>
-              <a href="#">Separated link</a>
-            </li>
+            <% if current_user %>
+              <li><a href="profile">Мои настройки</a></li>
+              <!--<li>< %= link_to "Profile", profile_path %></li>-->
+              <li><a href="log_out">Выйти из системы</a></li>
+              <!--<li>< %= link_to "Log out", log_out_path %></li>-->
+            <% else %>
+              <!--<li>< %= link_to "Log in", log_in_path %></li>-->
+              <!--<li>< %= link_to "Sign up", sign_up_path %></li>-->
+              <li><a href="log_in">Войти</a></li>
+              <li><a href="sign_up">Зарегестрироваться</a></li>
+              <li class="divider">
+              </li>
+              <li>
+                <a href="happy">Хочется счастья в жизни</a>
+              </li>
+            <% end %>
+            <!--<li>-->
+              <!--<a href="#">Action</a>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<a href="#">Another action</a>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<a href="#">Something else here</a>-->
+            <!--</li>-->
+
           </ul>
         </li>
       </ul>

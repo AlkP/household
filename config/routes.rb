@@ -1,9 +1,19 @@
 Household::Application.routes.draw do
 
+  resources :sessions
+  resources :users
+
   resources :accounts
   resources :shops do
     resources :accounts
   end
+
+  get "sign_up" => "users#new", :as => "sign_up"
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "log_out" => "sessions#destroy", :as => "logout"
+  get "profile" => "users#edit", :as => "profile"
+
+  get "happy" => "sessions#happy"
 
   root 'accounts#index'
 
