@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+
   def new
     @account = Account.new()
     @shop_list = Shop.all
@@ -64,6 +65,7 @@ class AccountsController < ApplicationController
   end
 
   def index
+    current_page_set("accounts")
     @accounts = Account.all
   end
 
