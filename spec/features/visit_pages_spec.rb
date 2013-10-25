@@ -6,8 +6,7 @@ describe "VisitPages" do
   describe "VisitPagesFromGuest" do
     it "visit main page from guest" do
       #user = FactoryGirl.create(:user)
-      user = create(:user)
-      visit main_index_path
+       visit main_index_path
       current_path.should eq(main_index_path)
     end
     it "visit account page from guest" do
