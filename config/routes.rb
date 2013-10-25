@@ -20,7 +20,7 @@ Household::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "logout"
   get "profile" => "users#edit", :as => "profile"
 
-  get "happy" => "sessions#happy"
+  get "happy" => "sessions#happy", :as => "happy"
 
   #root 'accounts#index'
 
