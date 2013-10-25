@@ -1,0 +1,29 @@
+<%= link_to 'Список статей расходов', type_accounts_path %></h4>
+
+
+<%= form_for @type_account, :html => { :multipart => true } do |f| %>
+
+    <% if @type_account.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <!--< %= pluralize(@account.errors.count, "ошибка") %> -->
+            Следующие ошибки запрещают сохранить эту статью расходов :</h2>
+          <ul>
+            <% @type_account.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <!--< %= f.date_field :date_amount, :value => Date.today %><br>-->
+
+    <p>
+      <%= f.label "Наименование" %>
+      <%= f.text_field :name %>
+    </p>
+
+    <p>
+      <%= f.submit "Обновить информацию о статье" %>
+
+    </p>
+<% end %>

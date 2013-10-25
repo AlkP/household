@@ -27,8 +27,25 @@ class UsersController < ApplicationController
   end
 
   private
+
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+
+    if params[:user][:email] == "admin@admin.com"
+      return :email => params[:user][:email],
+             :password => params[:user][:password],
+             :password_confirmation => params[:user][:password_confirmation],
+             :admin => true
+    else
+      return :email => params[:user][:email],
+             :password => params[:user][:password],
+             :password_confirmation => params[:user][:password_confirmation],
+             :admin => false
+    end
+
   end
+
+  #def user_params_admin
+  #  params.require(:user).permit(:email, :password, :password_confirmation, :admin => true)
+  #end
 
 end

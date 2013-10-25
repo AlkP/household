@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authentication
-    if !current_user && controller_name != "main"
+    if !current_user && controller_name != "main" && controller_name != "users" && controller_name != "sessions"
       redirect_to root_url, alert: "Для начала работы, пожалуйста зарегестрируйтесь"
     end
   end

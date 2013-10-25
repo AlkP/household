@@ -1,13 +1,18 @@
 Household::Application.routes.draw do
 
-  get "type_account/index"
   get "main/index"
   resources :sessions
-  resources :users
-
   resources :accounts
+  resources :type_accounts do
+    resources :accounts
+  end
   resources :shops do
     resources :accounts
+  end
+  resources :users do
+    resources :accounts
+    resources :type_accounts
+    resources :shops
   end
 
   get "sign_up" => "users#new", :as => "sign_up"
@@ -20,6 +25,8 @@ Household::Application.routes.draw do
   #root 'accounts#index'
 
   root 'main#index'
+
+  get "/*temp_url_request" => 'main#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
