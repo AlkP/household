@@ -43,7 +43,11 @@
 
   <p>
     <%= f.label "Статья расходов" %>
-    <%= f.select( :type_account_id, TypeAccount.my_all(current_user).map {|c| [c.name, c.id]}, :selected => @default_type_account) %>
+    <% if action_name = "edit" %>
+      <%= f.select( :type_account_id, TypeAccount.my_all(current_user).map {|c| [c.name, c.id]}) %>
+    <% else %>
+      <%= f.select( :type_account_id, TypeAccount.my_all(current_user).map {|c| [c.name, c.id]}, :selected => @default_type_account) %>
+    <% end %>
   </p>
 
   <p>

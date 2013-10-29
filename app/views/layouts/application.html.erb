@@ -55,9 +55,15 @@
           <%= yield %>
         </div>
         <div class="span4">
-
+          <h4>
+            Рабочий период
+            <%= select_year($global_date.year, options = {}, html_options = { style: "width:70px", :onchange => "change(inp_0.value, inp_1.value)" } ) %>
+            <%= select_month($global_date.month, options = {use_month_numbers: true}, html_options = { style: "width:60px", :onchange => "change(inp_0.value, inp_1.value)" }) %>
+          </h4>
+          <%= render 'layouts/dashboard_my_count' %>
         </div>
         <div class="span4">
+
         </div>
       </div>
     </div>
@@ -65,3 +71,13 @@
 
 </body>
 </html>
+
+<script>
+  var inp_0 = document.getElementById("date_year");
+  var inp_1 = document.getElementById("date_month");
+
+  function change(yy,mm){
+    $.ajax({ url: "<%= url_for(:action => 'change_date', :controller => 'application') %>?year="+yy+"&month="+mm });
+    window.location.reload();
+  }
+</script>

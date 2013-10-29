@@ -1,6 +1,11 @@
 Household::Application.routes.draw do
 
   get "main/index"
+  get "application/upd_d"
+  get "application/change_date"
+
+
+  resources :date_app
   resources :sessions
   resources :accounts
   resources :type_accounts do

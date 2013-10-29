@@ -1,0 +1,26 @@
+<div><% dashboard %></div>
+<table class="table table-condensed table-hover table-striped">
+  <thead>
+  <tr>
+    <th>
+      Наименование
+    </th>
+    <th>
+      Сумма
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @my_type_accounts_sum.each do |name, sum| %>
+    <tr>
+      <td>
+        <%= name %>
+      </td>
+      <td>
+        <%= sum %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

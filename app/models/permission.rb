@@ -1,14 +1,17 @@
 class Permission
   def initialize(user)
+    allow_all
     allow :users, [:new, :create, :edit]
     allow :sessions, [:new, :create, :destroy]
+    allow :date_app, [:update]
     allow :main, [:index]
     if user
       allow_all if user.admin?
-      allow :users, [:update] do |user_g|
-        user_g.id == user.id
+      allow :application, [:change_date]
+      allow :users, [:update] do |user_s|
+        user_s.id == user.id
       end
-      allow :accounts, [:index, :new, :create]
+      allow :accounts, [:index, :new, :create, :upd_d]
       allow :accounts, [:edit, :update, :destroy] do |account|
         account.user_id == user.id
       end

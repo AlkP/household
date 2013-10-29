@@ -55,7 +55,7 @@ class AccountsController < ApplicationController
 
   def index
     current_page_set("accounts")
-    @accounts = my_accounts
+    @accounts = my_accounts_period
   end
 
   def destroy
@@ -69,6 +69,10 @@ class AccountsController < ApplicationController
 
   def my_accounts
     Account.my_all(current_user)
+  end
+
+  def my_accounts_period
+    Account.my_period(current_user)
   end
 
   def my_type_accounts

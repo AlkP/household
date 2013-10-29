@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
+  $global_date ||= Date.new(Date.today.year,Date.today.month)
+  $global_date_next ||= Date.new(Date.today.year,Date.today.month + 1)
+
   before_filter :authentication
   before_filter :authorize
   delegate :allow?, to: :current_permission
@@ -11,6 +14,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_page
   helper_method :allow?
+
+  helper_method :my_var
+
+  def change_date
+    $global_date = Date.new(params[:year].to_i, params[:month].to_i)
+    $global_date_next = Date.new(params[:year].to_i, params[:month].to_i + 1)
+  end
 
   private
 
