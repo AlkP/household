@@ -1,6 +1,5 @@
 class Permission
   def initialize(user)
-    allow_all
     allow :users, [:new, :create, :edit]
     allow :sessions, [:new, :create, :destroy]
     allow :date_app, [:update]
