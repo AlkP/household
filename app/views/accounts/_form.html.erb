@@ -52,7 +52,7 @@
 
   <p>
     <%= f.label "Наименование магазина" %>
-    <%= f.select( :shop_id, Shop.my_all(current_user).map {|c| [c.name, c.id]}) %>
+    <%= f.select( :shop_id, Shop.my_all_for_account(current_user).map {|c| [c.name, c.id]}) %>
     <!--< %= f.text_field :shop_name, :class => "rest", :value => @shop_name %>-->
   </p>
 
