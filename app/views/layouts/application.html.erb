@@ -55,12 +55,14 @@
           <%= yield %>
         </div>
         <div class="span4">
-          <h4>
-            Рабочий период
-            <%= select_year($global_date.year, options = {}, html_options = { style: "width:70px", :onchange => "change(inp_0.value, inp_1.value)" } ) %>
-            <%= select_month($global_date.month, options = {use_month_numbers: true}, html_options = { style: "width:60px", :onchange => "change(inp_0.value, inp_1.value)" }) %>
-          </h4>
-          <%= render 'layouts/dashboard_my_count' %>
+          <% if current_user %>
+            <h4>
+              Рабочий период
+              <%= select_year($global_date.year, options = {}, html_options = { style: "width:70px", :onchange => "change(inp_0.value, inp_1.value)" } ) %>
+              <%= select_month($global_date.month, options = {use_month_numbers: true}, html_options = { style: "width:60px", :onchange => "change(inp_0.value, inp_1.value)" }) %>
+            </h4>
+            <%= render 'layouts/dashboard_my_count' %>
+          <% end %>
         </div>
         <div class="span4">
 
