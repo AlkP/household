@@ -2,89 +2,89 @@ class AccountsController < ApplicationController
 
   def new
     @account = Account.new()
-    @shop_list = Shop.all
-    @product_list = Account.all.count(group: :title)
+    @product_list = my_accounts.count(group: :title)
+    @default_type_account = my_type_accounts.where( :main => true ).first.id if my_type_accounts.where( :main => true ).count > 0
   end
 
   def create
-    @shop = Shop.where(:name => params[:account][:shop_name])
     data = params[:account]["date_amount(1i)"] + "/" + params[:account]["date_amount(2i)"] + "/" + params[:account]["date_amount(3i)"]
     @date_sales = Date.parse(data)
-    if @shop.count == 1
-      #@account = Account.new(account_params)
-      @account = Account.new(:date_amount => @date_sales,
-                             :title => params[:account][:title],
-                             :amount => params[:account][:amount],
-                             :shop_id => @shop.first.id)
-      @shop = Shop.where(:name => params[:account][:shop_name])
-      if (@account.save)
-        redirect_to accounts_path
-      else
-        render 'new'
-      end
-
+    @account = Account.new(:date_amount => @date_sales,
+                           :title => params[:account][:title],
+                           :amount => params[:account][:amount],
+                           :shop_id => params[:account][:shop_id],
+                           :user_id => current_user.id,
+                           :type_account_id => params[:account][:type_account_id])
+    if (@account.save)
+      redirect_to accounts_path
     else
-      flash.now.alert = "Укажите корректный магазин, если его нет в списке, предварительно заведите его."
-      render 'edit'
+      flash.now.alert = "Некорректные данные"
+      render 'new'
     end
-
   end
 
   def edit
-    @account = Account.find(params[:id])
-    @shop_list = Shop.all
-    @product_list = Account.all.count(group: :title)
-    @shop_name = Shop.find(@account.shop_id).name if !@account.shop_id.nil?
+    @account = current_resource
+    @product_list = my_accounts.count(group: :title)
   end
 
   def update
-    @account = Account.find(params[:id])
-    @shop_list = Shop.all
-    @product_list = Account.all.count(group: :title)
 
-    @shop = Shop.where(:name => params[:account][:shop_name])
+    @account = current_resource
+    @product_list = my_accounts.count(group: :title)
 
-    if @shop.count == 1
-      @shop_name = @shop.name
+    @account = current_resource
+    data = params[:account]["date_amount(1i)"] + "/" + params[:account]["date_amount(2i)"] + "/" + params[:account]["date_amount(3i)"]
+    @date_sales = Date.parse(data)
 
-      @account = Account.find(params[:id])
-      data = params[:account]["date_amount(1i)"] + "/" + params[:account]["date_amount(2i)"] + "/" + params[:account]["date_amount(3i)"]
-      @date_sales = Date.parse(data)
-
-      if @account.update(:date_amount => @date_sales,
-                         :title => params[:account][:title],
-                         :amount => params[:account][:amount],
-                         :shop_id => @shop.first.id)
-        redirect_to accounts_path
-      else
-        render 'edit'
-      end
+    if @account.update(:date_amount => @date_sales,
+                       :title => params[:account][:title],
+                       :amount => params[:account][:amount],
+                       :shop_id => params[:account][:shop_id],
+                       :type_account_id => params[:account][:type_account_id])
+      redirect_to accounts_path
     else
-      flash.now.alert = "Укажите корректный магазин, если его нет в списке, предварительно заведите его."
+      flash.now.alert = "Некорректные данные"
       render 'edit'
     end
-
   end
 
   def show
-    @account = Account.find(params[:id])
+    @account = current_resource
   end
 
   def index
     current_page_set("accounts")
-    @accounts = Account.all
+    @accounts = my_accounts
   end
 
   def destroy
-    @account = Account.find(params[:id])
+    @account = current_resource
     @account.destroy
     redirect_to accounts_path
   end
 
 
   private
+
+  def my_accounts
+    Account.my_all(current_user)
+  end
+
+  def my_type_accounts
+    TypeAccount.my_all(current_user)
+  end
+
+  def my_shops
+    Shop.my_all(current_user)
+  end
+
   def account_params
-    params.require(:account).permit(:title, :amount, :date_amount, :shop_id)
+    params.require(:account).permit(:title, :amount, :date_amount, :shop_id, :type_account_id)
+  end
+
+  def current_resource
+    @current_resource ||= Account.find(params[:id]) if params[:id]
   end
 
 end

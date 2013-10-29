@@ -3,11 +3,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
 
   before_filter :authentication
+  before_filter :authorize
+  delegate :allow?, to: :current_permission
 
   protect_from_forgery with: :exception
 
   helper_method :current_user
   helper_method :current_page
+  helper_method :allow?
 
   private
 
@@ -23,10 +26,25 @@ class ApplicationController < ActionController::Base
     @current_page
   end
 
-  def authentication
-    if !current_user && controller_name != "main" && controller_name != "users" && controller_name != "sessions"
-      redirect_to root_url, alert: "Для начала работы, пожалуйста зарегестрируйтесь"
+  def current_permission
+    @current_permission ||= Permission.new(current_user)
+  end
+
+  def current_resource
+    nil
+  end
+
+  def authorize
+    if !current_permission.allow?(params[:controller], params[:action], current_resource)
+      redirect_to root_url, alert: "Превышены права !"
     end
+
+  end
+
+  def authentication
+    #if !current_user && controller_name != "main" && controller_name != "users" && controller_name != "sessions"
+    #  redirect_to root_url, alert: "Для начала работы, пожалуйста зарегестрируйтесь"
+    #end
   end
 
 end

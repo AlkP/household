@@ -6,11 +6,15 @@ class ShopsController < ApplicationController
 
   def index
     current_page_set("shops")
-    @shops = Shop.all
+    #@shops = Shop.where(:user_id => current_user.id)
+    @shops = my_shops
   end
 
   def create
-    @shop = Shop.new(shop_params)
+    @shop = Shop.new(:name => params[:shop][:name],
+                     :user_id => current_user.id,
+                     :address => params[:shop][:address])
+    #@shop = shop_params
 
     if @shop.save
       render 'edit'
@@ -20,11 +24,11 @@ class ShopsController < ApplicationController
   end
 
   def edit
-    @shop = Shop.find(params[:id])
+    @shop = current_resource
   end
 
   def update
-    @shop = Shop.find(params[:id])
+    @shop = current_resource
 
     if @shop.update(shop_params)
       render 'edit'
@@ -34,15 +38,24 @@ class ShopsController < ApplicationController
   end
 
   def destroy
-    @shop = Shop.find(params[:id])
+    @shop = current_resource
     @shop.destroy
     redirect_to shops_path
   end
 
   private
 
+  def my_shops
+    Shop.my_all(current_user)
+  end
+
   def shop_params
-    params.require(:shop).permit(:name, :address, :latitude, :longitude)
+    #Shop.new(:name => params[:shop][:name], :user_id => current_user.id, :address => params[:shop][:address])
+    params.require(:shop).permit(:name, :address, :latitude, :longitude,)
+  end
+
+  def current_resource
+    @current_resource ||= Shop.find(params[:id]) if params[:id]
   end
 
 end

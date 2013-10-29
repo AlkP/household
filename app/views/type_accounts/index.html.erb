@@ -24,7 +24,11 @@
   <% @type_accounts.each do |f| %>
       <tr>
         <td>
-          <%= link_to f.name, edit_type_account_path(f) %>
+          <% if allow? :type_accounts, :edit, f %>
+            <%= link_to f.name, edit_type_account_path(f) %>
+          <% else %>
+            <%= f.name %>
+          <% end %>
         </td>
       </tr>
   <% end %>
@@ -47,7 +51,12 @@
         if (result_search_0)
         {
             var newrow = mytable.insertRow(2);
-            newrow.insertCell(0).innerHTML = "<a href=\"/type_accounts/<%= f.id %>/edit\"><%= f.name %></a>";
+            <% if allow? :type_accounts, :edit, f %>
+              newrow.insertCell(0).innerHTML = "<a href=\"/type_accounts/<%= f.id %>/edit\"><%= f.name %></a>";
+            <% else %>
+              newrow.insertCell(0).innerHTML = "<%= f.name %>";
+            <% end %>
+
         }
         <% end %>
     }

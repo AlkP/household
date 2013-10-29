@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131024163039) do
+ActiveRecord::Schema.define(version: 20131028120206) do
 
   create_table "accounts", force: true do |t|
     t.string   "title"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20131024163039) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.boolean  "main"
   end
 
   add_index "type_accounts", ["user_id"], name: "index_type_accounts_on_user_id", using: :btree

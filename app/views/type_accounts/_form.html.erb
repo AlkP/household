@@ -1,4 +1,4 @@
-<%= link_to 'Список статей расходов', type_accounts_path %></h4>
+<%= link_to 'Список', type_accounts_path %></h4>
 
 
 <%= form_for @type_account, :html => { :multipart => true } do |f| %>
@@ -20,6 +20,11 @@
     <p>
       <%= f.label "Наименование" %>
       <%= f.text_field :name %>
+    </p>
+
+    <p>
+      <%= f.label "Признак основной статьи" %>
+      <%= f.check_box :main %>
     </p>
 
     <p>

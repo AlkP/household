@@ -42,8 +42,14 @@
   </p>
 
   <p>
+    <%= f.label "Статья расходов" %>
+    <%= f.select( :type_account_id, TypeAccount.my_all(current_user).map {|c| [c.name, c.id]}, :selected => @default_type_account) %>
+  </p>
+
+  <p>
     <%= f.label "Наименование магазина" %>
-    <%= f.text_field :shop_name, :class => "rest", :value => @shop_name %>
+    <%= f.select( :shop_id, Shop.my_all(current_user).map {|c| [c.name, c.id]}) %>
+    <!--< %= f.text_field :shop_name, :class => "rest", :value => @shop_name %>-->
   </p>
 
   <p>
@@ -60,11 +66,11 @@
 <% end %>
 
 <script>
-    var input = document.getElementsByClassName("rest")[0];
-    input.oninput = function()
-    {
-        change_tr(input_0.value,search_string_0)
-    }
+//    var input = document.getElementsByClassName("rest")[0];
+//    input.oninput = function()
+//    {
+//        change_tr(input_0.value,search_string_0)
+//    }
 
     $(function() {
         var productName = [
@@ -75,13 +81,13 @@
         $( "#account_title" ).autocomplete({
             source: productName
         });
-        var shopName = [
-            <% @shop_list.each do |shop| %>
-            "<%= shop.name %>",
-            <% end %>
-        ];
-        $( "#account_shop_name" ).autocomplete({
-            source: shopName
-        });
+//        var shopName = [
+            <!--< % @shop_list.each do |shop| %>-->
+//            "< %= shop.name %>",
+            <!--< % end %>-->
+//        ];
+//        $( "#account_shop_name" ).autocomplete({
+//            source: shopName
+//        });
     });
 </script>
