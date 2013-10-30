@@ -7,12 +7,9 @@ class AccountsController < ApplicationController
   end
 
   def create
-    data = params[:account]["date_amount(1i)"] + "/" + params[:account]["date_amount(2i)"] + "/" + params[:account]["date_amount(3i)"]
-    @date_sales = Date.parse(data)
-    @account = Account.new(:date_amount => @date_sales,
+    @account = Account.new(:date_amount => params[:account][:date_amount],
                            :title => params[:account][:title],
                            :amount => params[:account][:amount],
-                           :shop_id => params[:account][:shop_id],
                            :user_id => current_user.id,
                            :type_account_id => params[:account][:type_account_id])
     if (@account.save)
@@ -29,18 +26,16 @@ class AccountsController < ApplicationController
   end
 
   def update
-
     @account = current_resource
     @product_list = my_accounts.count(group: :title)
 
     @account = current_resource
-    data = params[:account]["date_amount(1i)"] + "/" + params[:account]["date_amount(2i)"] + "/" + params[:account]["date_amount(3i)"]
-    @date_sales = Date.parse(data)
+    #data = params[:account]["date_amount(1i)"] + "/" + params[:account]["date_amount(2i)"] + "/" + params[:account]["date_amount(3i)"]
+    #@date_sales = Date.parse(data)
 
-    if @account.update(:date_amount => @date_sales,
+    if @account.update(:date_amount => params[:account][:date_amount],
                        :title => params[:account][:title],
                        :amount => params[:account][:amount],
-                       :shop_id => params[:account][:shop_id],
                        :type_account_id => params[:account][:type_account_id])
       redirect_to accounts_path
     else

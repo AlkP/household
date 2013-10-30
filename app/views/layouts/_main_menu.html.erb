@@ -2,9 +2,12 @@
   <div class="navbar-inner">
     <div class="container-fluid">
       <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a> <a href="/" class="brand">Домашний учет</a>
+
       <ul class="nav pull-right">
         <li>
-          <a class="text-success"><dt class="text-success">давайте начинать считать</dt></a>
+          <a class="text-success"><dt class="text-success">
+
+          давайте начинать считать</dt></a>
         </li>
         <!--<li>-->
         <!--<a href="#">Link</a>-->
@@ -55,7 +58,7 @@
           <!--class=< %= "active" if current_page == "shops" %>-->
           <li class=<%= "active" if current_page == "accounts" %>><%= link_to 'Счета', controller: "accounts", action: "index" %></li>
           <li class=<%= "active" if current_page == "type_account" %>><%= link_to 'Статьи расходов', controller: "type_accounts", action: "index" %></li>
-          <li class=<%= "active" if current_page == "shops" %>><%= link_to 'Магазины', controller: "shops", action: "index" %></li>
+          <!--<li class=< %= "active" if current_page == "shops" %>><%= link_to 'Магазины', controller: "shops", action: "index" %></li>-->
           <!--<li>-->
             <!--<a href="#">Link</a>-->
           <!--</li>-->

@@ -1,4 +1,4 @@
-<h4><%= link_to 'Удалить счет', account_path(@account), method: :delete, data: { confirm: 'Are you sure?' } %>  |
+<h4><%= link_to 'Удалить счет', account_path(@account), :class => "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <%= render 'form' %>
 

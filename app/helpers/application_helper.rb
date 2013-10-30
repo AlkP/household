@@ -3,8 +3,11 @@ module ApplicationHelper
   def dashboard
     @my_type_accounts = my_type_accounts
     @my_type_accounts_sum = {}
+    @total_amount = 0
     @my_type_accounts.each do |f|
-      @my_type_accounts_sum[f.name] = account_my_all_by_type(f.id)
+      @temp = account_my_all_by_type(f.id)
+      @my_type_accounts_sum[f.name] = @temp
+      @total_amount += @temp
     end
   end
 

@@ -14,3 +14,20 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+
+function checkSymbol() {
+  if (((event.keyCode < 48) || (event.keyCode > 57)) && (event.keyCode != 46 ) && (event.keyCode != 44 ) )
+  {
+    event.returnValue = false;
+  }
+  else
+  {
+    stringTest = document.getElementById ('account_amount').value + String.fromCharCode(event.keyCode)
+    test = /^(\w*)?(\.|\,)?(\w*)?$/.test(stringTest);
+    if (test)
+      true;
+    else
+      event.returnValue = false;
+  }
+}

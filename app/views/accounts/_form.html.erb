@@ -1,5 +1,6 @@
-<%= link_to 'Список счетов', accounts_path %></h4>
+<%= link_to 'Назад', accounts_path, :class => "btn btn-success" %></h4>
 
+<br>
 <%= form_for @account, :html => { :multipart => true } do |f| %>
 
   <% if @account.errors.any? %>
@@ -22,28 +23,12 @@
 
   <p>
     <%= f.label "Сумма" %>
-    <%= f.text_field :amount, :onKeyPress => "
-    if (((event.keyCode < 48) || (event.keyCode > 57)) && (event.keyCode != 46 ) )
-    {
-      <!--alert(document.getElementById ('account_amount').value); --!>
-      event.returnValue = false;
-    }
-    else
-    {
-      {
-        test = document.getElementById ('account_amount').value + String.fromCharCode(event.keyCode)
-        q = /^(\\w*)?(\\.)?(\\w*)?$/.test(test);
-        if (q)
-          true;
-        else
-          event.returnValue = false;
-      }
-    }"%>
+    <%= f.text_field :amount %>
   </p>
 
   <p>
     <%= f.label "Статья расходов" %>
-    <% if action_name = "edit" %>
+    <% if action_name == "edit" %>
       <%= f.select( :type_account_id, TypeAccount.my_all(current_user).map {|c| [c.name, c.id]}) %>
     <% else %>
       <%= f.select( :type_account_id, TypeAccount.my_all(current_user).map {|c| [c.name, c.id]}, :selected => @default_type_account) %>
@@ -51,47 +36,57 @@
   </p>
 
   <p>
-    <%= f.label "Наименование магазина" %>
-    <%= f.select( :shop_id, Shop.my_all_for_account(current_user).map {|c| [c.name, c.id]}) %>
-    <!--< %= f.text_field :shop_name, :class => "rest", :value => @shop_name %>-->
-  </p>
-
-  <p>
     <%= f.label "Дата покупки" %>
-    <%= f.date_select :date_amount %>
+    <% if action_name == "edit" %>
+      <%= f.text_field :date_amount %>
+    <% else %>
+      <%= f.text_field :date_amount, :value => Date.today %>
+    <% end %>
   </p>
 
-  <br>
-
   <p>
-    <%= f.submit "Сохранить счет" %>
+    <%= f.submit "Сохранить счет", :class => "btn btn-primary" %>
   </p>
 
 <% end %>
 
 <script>
+  document.getElementById('account_amount').onkeypress=checkSymbol;
+
 //    var input = document.getElementsByClassName("rest")[0];
 //    input.oninput = function()
 //    {
 //        change_tr(input_0.value,search_string_0)
 //    }
 
-    $(function() {
-        var productName = [
-            <% @product_list.each do |product| %>
-            "<%= product[0] %>",
-            <% end %>
-        ];
-        $( "#account_title" ).autocomplete({
-            source: productName
-        });
-//        var shopName = [
-            <!--< % @shop_list.each do |shop| %>-->
+  $(function() {
+    $( "#account_date_amount" ).datepicker({
+      dateFormat: "yy-mm-dd",
+      showAnim: "clip",
+//      showOn: "button",
+      changeMonth: true,
+      changeYear: true
+//      buttonImage: "images/calendar.gif",
+//      buttonImageOnly: true
+    });
+  });
+
+  $(function() {
+    var productName = [
+      <% @product_list.each do |product| %>
+      "<%= product[0] %>",
+      <% end %>
+    ];
+    $( "#account_title" ).autocomplete({
+        source: productName
+    });
+//      var shopName = [
+      <!--< % @shop_list.each do |shop| %>-->
 //            "< %= shop.name %>",
-            <!--< % end %>-->
+      <!--< % end %>-->
 //        ];
 //        $( "#account_shop_name" ).autocomplete({
 //            source: shopName
 //        });
-    });
+  });
 </script>

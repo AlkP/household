@@ -1,4 +1,4 @@
-<h4><%= link_to 'Новый счет', new_account_path, :id => "btn" %></h4>
+<h4><%= link_to 'Новый счет', new_account_path, :id => "btn", :class => "btn btn-success" %></h4>
 
 <table class="table table-condensed table-hover table-striped alkp_table_active">
   <thead>
@@ -16,16 +16,16 @@
   </thead>
 
   <tbody>
-    <tr>
-      <td>
-        <input type="text" search_string="title" id="alkp_search_field_0">  <!--<br> <span id="result"></span>-->
-      </td>
-      <td>
-        Итого: <span id="result"></span>
-      </td>
-      <td>
-      </td>
-    </tr>
+    <!--<tr>-->
+      <!--<td>-->
+        <!--<input type="text" search_string="title" id="alkp_search_field_0">  &lt;!&ndash;<br> <span id="result"></span>&ndash;&gt;-->
+      <!--</td>-->
+      <!--<td>-->
+        <!--Итого: <span id="result"></span>-->
+      <!--</td>-->
+      <!--<td>-->
+      <!--</td>-->
+    <!--</tr>-->
     <% @accounts.each do |f| %>
       <tr>
         <td>
@@ -44,51 +44,51 @@
 
 <script>
 
-  function change_tr(my_qq_ww, par_search) {
-    var last_row_index=mytable.rows.length-1;
-    var index_row = mytable.rows.length
-    for(i=0;i<index_row-2;i++) {
-        mytable.deleteRow(last_row_index);
-        last_row_index = last_row_index - 1;
-    }
-    var summa = 0
-    <% @accounts.each do |f| %>
-      var search_str = new RegExp(my_qq_ww, "gi");
-      switch (par_search)
-      {
-        case("title"):
-          result_search_ = ("<%= f.title %>").match(search_str);
-          break;
-        case("amount"):
-          result_search_ = ("<%= f.amount %>").match(search_str);
-          break;
-      }
-      if (result_search_)
-      {
-          var newrow = mytable.insertRow(2);
-          newrow.insertCell(0).innerHTML = "<a href=\"/accounts/<%= f.id %>/edit\"><%= f.title %></a>";
-          newrow.insertCell(1).innerHTML = "<%= f.amount %>";
-          newrow.insertCell(2).innerHTML = "<%= f.date_amount %>";
-          var qw = <%= f.amount %>;
-          summa += qw;
-      }
-    <% end %>
-    document.getElementById('result').innerHTML = summa;
-  }
-
-  mytable = document.getElementsByClassName("alkp_table_active")[0];
-
-
-
-  var input_0 = document.getElementById("alkp_search_field_0");
-  var search_string_0 = document.getElementById("alkp_search_field_0").attributes.search_string.value
-  input_0.oninput = function()
-  {
-      change_tr(input_0.value,search_string_0);
-  }
-
-
-  change_tr(input_0.value,search_string_0);
+//  function change_tr(my_qq_ww, par_search) {
+//    var last_row_index=mytable.rows.length-1;
+//    var index_row = mytable.rows.length
+//    for(i=0;i<index_row-2;i++) {
+//        mytable.deleteRow(last_row_index);
+//        last_row_index = last_row_index - 1;
+//    }
+//    var summa = 0
+    <!--< % @accounts.each do |f| %>-->
+//      var search_str = new RegExp(my_qq_ww, "gi");
+//      switch (par_search)
+//      {
+//        case("title"):
+//          result_search_ = ("< %= f.title %>").match(search_str);
+//          break;
+//        case("amount"):
+//          result_search_ = ("< %= f.amount %>").match(search_str);
+//          break;
+//      }
+//      if (result_search_)
+//      {
+//          var newrow = mytable.insertRow(2);
+//          newrow.insertCell(0).innerHTML = "<a href=\"/accounts/< %= f.id %>/edit\">< %= f.title %></a>";
+//          newrow.insertCell(1).innerHTML = "< %= f.amount %>";
+//          newrow.insertCell(2).innerHTML = "< %= f.date_amount %>";
+//          var qw = < %= f.amount %>;
+//          summa += qw;
+//      }
+    <!-- < % end %>-->
+//    document.getElementById('result').innerHTML = summa;
+//  }
+//
+//  mytable = document.getElementsByClassName("alkp_table_active")[0];
+//
+//
+//
+//  var input_0 = document.getElementById("alkp_search_field_0");
+//  var search_string_0 = document.getElementById("alkp_search_field_0").attributes.search_string.value
+//  input_0.oninput = function()
+//  {
+//      change_tr(input_0.value,search_string_0);
+//  }
+//
+//
+//  change_tr(input_0.value,search_string_0);
 
 </script>
 

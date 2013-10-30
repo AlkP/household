@@ -11,6 +11,24 @@
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css" />
 
+  <script>
+    $.datepicker.regional['ru'] = {
+    closeText: 'Закрыть',
+    prevText: '&#x3c;Пред',
+    nextText: 'След&#x3e;',
+    currentText: 'Сегодня',
+    monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+    monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+    dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+    dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+    dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+    dateFormat: 'dd.mm.yy',
+    firstDay: 1,
+    isRTL: false
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+  </script>
+
 </head>
 <body>
 
@@ -51,16 +69,20 @@
         <% end %>
       <% end %>
       <div class="row-fluid">
-        <div class="span4">
+        <% if action_name == "new" or action_name == "edit" %>
+          <div class="span4 alert alert-success">
+        <% else %>
+          <div class="span4">
+        <% end %>
           <%= yield %>
         </div>
         <div class="span4">
           <% if current_user %>
-            <h4>
-              Рабочий период
-              <%= select_year($global_date.year, options = {}, html_options = { style: "width:70px", :onchange => "change(inp_0.value, inp_1.value)" } ) %>
-              <%= select_month($global_date.month, options = {use_month_numbers: true}, html_options = { style: "width:60px", :onchange => "change(inp_0.value, inp_1.value)" }) %>
-            </h4>
+
+            Рабочий период
+            <%= select_year($global_date.year, options = {}, html_options = { style: "width:70px", :onchange => "change(inp_0.value, inp_1.value)" } ) %>
+            <%= select_month($global_date.month, options = {use_month_numbers: true}, html_options = { style: "width:60px", :onchange => "change(inp_0.value, inp_1.value)" }) %>
+
             <%= render 'layouts/dashboard_my_count' %>
           <% end %>
         </div>
@@ -82,4 +104,6 @@
     $.ajax({ url: "<%= url_for(:action => 'change_date', :controller => 'application') %>?year="+yy+"&month="+mm });
     window.location.reload();
   }
+
+
 </script>
