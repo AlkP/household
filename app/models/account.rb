@@ -23,9 +23,9 @@ class Account < ActiveRecord::Base
 
   scope :my_period, lambda { |user|
     if user.admin?
-      all.order('date_amount ASC') unless user.id.nil?
+      all.order('date_amount DESC') unless user.id.nil?
     else
-      where('user_id = ? and date_amount >= ? and date_amount < ?', user.id, $global_date.to_date, $global_date_next.to_date).order('date_amount ASC') unless user.id.nil?
+      where('user_id = ? and date_amount >= ? and date_amount < ?', user.id, $global_date.to_date, $global_date_next.to_date).order('date_amount DESC') unless user.id.nil?
     end
   }
 
